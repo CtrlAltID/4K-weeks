@@ -1,0 +1,35 @@
+{
+  "name": "4K-weeks",
+  "author": "MakeAwesomeHappen",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "4K-weeks",
+    "uuid": "78645fb7-a4a2-4429-9d1c-7ea2eaba67f2",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite",
+      "emery",
+      "flint"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "birthYear",
+      "birthMonth",
+      "birthDay",
+      "gender",
+      "lifeExpectancy"
+    ],
+    "resources": {
+      "media": []
+    }
+  }
+}

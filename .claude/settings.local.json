@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone:*)",
+      "Bash(pebble build:*)",
+      "Bash(pebble install:*)",
+      "Bash(pebble screenshot:*)",
+      "Bash(pebble clean:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
