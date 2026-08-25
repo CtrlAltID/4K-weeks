@@ -69,7 +69,24 @@
 
 // --- Date pill ---
 // Grows in from its own center, in place, rather than sliding on screen.
-#define PILL_TIMEOUT_MS 5000
+// This is the only thing that ever puts the pill away during normal use —
+// there's no tap gesture that means "close," so 0 would not mean "never
+// times out": app_timer_register(0, ...) fires on the next tick, closer to
+// instant.
+//
+// Sized off the backlight rather than left open-ended: the pill has no
+// reason to keep the screen effectively "on" (readable, meant to be looked
+// at) well past the point the backlight itself has already timed out and
+// gone dark. There's no SDK API to read the user's actual configured
+// backlight duration, so this targets roughly double the platform's max
+// (8s), which stays comfortably past a real backlight cycle without
+// drifting toward "stays up indefinitely."
+//
+// Unrelated to SHAKE_BURST_* below: that's what actually guards against the
+// pill popping up from sustained tap noise during a run or ride. This
+// timeout only governs how long an already-open pill lingers before
+// auto-closing back to the plain dial.
+#define PILL_TIMEOUT_MS 16000
 #define PILL_REVEAL_MS 300
 #define PILL_FILL_MS 450      // battery level sweeping in / out
 #define C_PILL_HALF_H 29.0f   // pill half height

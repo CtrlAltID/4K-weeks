@@ -30,6 +30,13 @@ if (typeof Pebble === 'undefined' || Pebble.platform === 'pypkjs') {
  * network, an unrecognized country — is silent: the watch keeps whatever
  * country was last set (manually or otherwise).
  *
+ * Uses XMLHttpRequest rather than fetch(): fetch() does not exist in
+ * PebbleKit JS's real engine (confirmed on device — ReferenceError — even
+ * though it's present in a browser or the emulator's dev-tools console).
+ * That was the actual root cause of this feature never working at all on a
+ * real watch: the network call threw synchronously, before any .then()/
+ * .catch() ever attached, silently, every time.
+ *
  * On success the resolved code is also mirrored into localStorage as
  * 'loc_country', which is what lets the webviewclosed handler below tell a
  * genuine manual override of the country field apart from an unrelated
@@ -50,20 +57,51 @@ function estimateCountryFromLocation() {
           + '?latitude=' + pos.coords.latitude
           + '&longitude=' + pos.coords.longitude
           + '&localityLanguage=en';
-      fetch(url)
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (data && data.countryCode) {
-            Pebble.sendAppMessage({ 'COUNTRY': data.countryCode });
-            try { localStorage.setItem('loc_country', data.countryCode); } catch (err) { /* private/incognito webview */ }
-            clay.setSettings('COUNTRY', data.countryCode);
-          }
-        })
-        .catch(function() { /* offline, blocked, or an unexpected reply: keep the current country */ });
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        if (xhr.status < 200 || xhr.status >= 300) {
+          return;  // offline, blocked, or the service is down: keep the current country
+        }
+        var data;
+        try {
+          data = JSON.parse(xhr.responseText);
+        } catch (err) {
+          return;  // unexpected reply: keep the current country
+        }
+        if (data && data.countryCode) {
+          Pebble.sendAppMessage({ 'COUNTRY': data.countryCode });
+          try { localStorage.setItem('loc_country', data.countryCode); } catch (err) { /* private/incognito webview */ }
+          clay.setSettings('COUNTRY', data.countryCode);
+        }
+      };
+      xhr.onerror = function() { /* network error: keep the current country */ };
+      xhr.open('GET', url, true);
+      xhr.send();
     },
     function() { /* permission denied or no fix: keep the current country */ },
     { timeout: 15000, maximumAge: 21600000 }  // reuse a fix up to 6h old
   );
+}
+
+// clay.getSettings() defaults to returning settings keyed by the numeric
+// AppMessage id (e.g. 10004), the shape Pebble.sendAppMessage() wants — not
+// by the messageKey names used here and throughout config.js. Checking
+// settings['USE_LOCATION'] against that default return value is always
+// undefined, silently: this was the second root cause of "estimate from
+// location" never working — useLocation and country read as always false/
+// undefined here, on every save, so the code below could never even run.
+// Passing false as the second argument keeps the field-name keys instead;
+// values still arrive wrapped as { value, precision } for some component
+// types, so unwrap them the same way Clay's own internal settings cache
+// does — see pebble-clay's getSettings()/prepareSettingsForAppMessage().
+function claySettings(response) {
+  var raw = clay.getSettings(response, false);
+  var out = {};
+  Object.keys(raw).forEach(function(k) {
+    var v = raw[k];
+    out[k] = (v && typeof v === 'object') ? v.value : v;
+  });
+  return out;
 }
 
 // Mirrors the USE_LOCATION toggle into localStorage (private to this watch's
@@ -73,9 +111,11 @@ Pebble.addEventListener('webviewclosed', function(e) {
   if (!e || !e.response) {
     return;  // settings page was cancelled, not saved
   }
-  var settings = clay.getSettings(e.response);
+  var settings = claySettings(e.response);
   var useLocation = !!settings['USE_LOCATION'];
   var country = settings['COUNTRY'];
+  var wasOn = false;
+  try { wasOn = localStorage.getItem('use_location') === 'true'; } catch (err) { /* private/incognito webview */ }
 
   // Clay already sent the settings as submitted — USE_LOCATION on and a
   // manually picked COUNTRY both take effect on the watch immediately.
@@ -84,7 +124,17 @@ Pebble.addEventListener('webviewclosed', function(e) {
   // silently overwriting the country just chosen. Treat a country that
   // differs from the one location estimation itself last set as a
   // deliberate override: turn location back off and correct the watch.
-  if (useLocation && country) {
+  //
+  // Gated on wasOn: Clay's Country field always shows whatever was last
+  // manually cached, whether or not location is checked — flipping the
+  // toggle doesn't touch it. Without wasOn, turning location on for the
+  // first time (or the first time in a while) reads as an "override" every
+  // single time, since the stale country field almost never happens to
+  // equal the last location result — that's what made the toggle look like
+  // it could never be turned on at all. Only when location was *already*
+  // on going into this save does a differing country mean something was
+  // deliberately changed underneath it.
+  if (wasOn && useLocation && country) {
     var lastLocCountry = null;
     try { lastLocCountry = localStorage.getItem('loc_country'); } catch (err) { /* private/incognito webview */ }
     if (lastLocCountry && country !== lastLocCountry) {
