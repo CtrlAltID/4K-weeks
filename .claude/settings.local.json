@@ -7,7 +7,17 @@
       "Bash(pebble screenshot:*)",
       "Bash(pebble clean:*)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(pebble emu-button:*)",
+      "Bash(pebble kill:*)",
+      "WebFetch(domain:apps.repebble.com)",
+      "Bash(pkill:*)",
+      "Bash(open:*)",
+      "Bash(pebble emu-app-config:*)",
+      "Bash(pebble logs:*)",
+      "WebFetch(domain:developer.repebble.com)",
+      "Bash(git status:*)"
     ]
   }
 }

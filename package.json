@@ -2,34 +2,616 @@
   "name": "4K-weeks",
   "author": "MakeAwesomeHappen",
   "version": "1.0.0",
-  "keywords": ["pebble-app"],
+  "keywords": [
+    "pebble-app"
+  ],
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@rebble/clay": "^1.0.10"
+  },
   "pebble": {
     "displayName": "4K-weeks",
     "uuid": "78645fb7-a4a2-4429-9d1c-7ea2eaba67f2",
     "sdkVersion": "3",
     "enableMultiJS": true,
     "targetPlatforms": [
-      "aplite",
-      "basalt",
-      "chalk",
-      "diorite",
       "emery",
-      "flint"
+      "gabbro"
+    ],
+    "capabilities": [
+      "configurable",
+      "location"
     ],
     "watchapp": {
       "watchface": true
     },
     "messageKeys": [
-      "birthYear",
-      "birthMonth",
-      "birthDay",
-      "gender",
-      "lifeExpectancy"
+      "SHOW_MINUTE",
+      "HAND_STYLE",
+      "ACCENT_COLOR",
+      "PILL_BATTERY",
+      "SHAKE_PILL",
+      "MINUTE_COLON",
+      "HOUR_SIZE",
+      "SCALE_STYLE",
+      "BIRTHDAY",
+      "GENDER",
+      "COUNTRY",
+      "USE_LOCATION",
+      "PILL_LIFE"
     ],
     "resources": {
-      "media": []
+      "media": [
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_0",
+          "file": "images/digit_34_0.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_1",
+          "file": "images/digit_34_1.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_2",
+          "file": "images/digit_34_2.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_3",
+          "file": "images/digit_34_3.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_4",
+          "file": "images/digit_34_4.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_5",
+          "file": "images/digit_34_5.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_6",
+          "file": "images/digit_34_6.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_7",
+          "file": "images/digit_34_7.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_8",
+          "file": "images/digit_34_8.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_34_9",
+          "file": "images/digit_34_9.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_0",
+          "file": "images/digit_48_0.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_1",
+          "file": "images/digit_48_1.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_2",
+          "file": "images/digit_48_2.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_3",
+          "file": "images/digit_48_3.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_4",
+          "file": "images/digit_48_4.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_5",
+          "file": "images/digit_48_5.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_6",
+          "file": "images/digit_48_6.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_7",
+          "file": "images/digit_48_7.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_8",
+          "file": "images/digit_48_8.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_48_9",
+          "file": "images/digit_48_9.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_0",
+          "file": "images/digit_60_0.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_1",
+          "file": "images/digit_60_1.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_2",
+          "file": "images/digit_60_2.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_3",
+          "file": "images/digit_60_3.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_4",
+          "file": "images/digit_60_4.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_5",
+          "file": "images/digit_60_5.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_6",
+          "file": "images/digit_60_6.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_7",
+          "file": "images/digit_60_7.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_8",
+          "file": "images/digit_60_8.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_60_9",
+          "file": "images/digit_60_9.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_0",
+          "file": "images/digit_80_0.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_1",
+          "file": "images/digit_80_1.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_2",
+          "file": "images/digit_80_2.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_3",
+          "file": "images/digit_80_3.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_4",
+          "file": "images/digit_80_4.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_5",
+          "file": "images/digit_80_5.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_6",
+          "file": "images/digit_80_6.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_7",
+          "file": "images/digit_80_7.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_8",
+          "file": "images/digit_80_8.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_80_9",
+          "file": "images/digit_80_9.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_0",
+          "file": "images/digit_25_0.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_1",
+          "file": "images/digit_25_1.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_2",
+          "file": "images/digit_25_2.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_3",
+          "file": "images/digit_25_3.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_4",
+          "file": "images/digit_25_4.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_5",
+          "file": "images/digit_25_5.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_6",
+          "file": "images/digit_25_6.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_7",
+          "file": "images/digit_25_7.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_8",
+          "file": "images/digit_25_8.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_9",
+          "file": "images/digit_25_9.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_25_10",
+          "file": "images/digit_25_10.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_0",
+          "file": "images/digit_30_0.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_1",
+          "file": "images/digit_30_1.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_2",
+          "file": "images/digit_30_2.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_3",
+          "file": "images/digit_30_3.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_4",
+          "file": "images/digit_30_4.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_5",
+          "file": "images/digit_30_5.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_6",
+          "file": "images/digit_30_6.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_7",
+          "file": "images/digit_30_7.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_8",
+          "file": "images/digit_30_8.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_DIGIT_30_9",
+          "file": "images/digit_30_9.png",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "font",
+          "name": "FONT_MONTSERRAT_P24",
+          "file": "fonts/Montserrat-SemiBold.ttf",
+          "characterRegex": "[0-9A-Z ,%\u00c4\u00d6\u00dc\u00c0\u00c1\u00c2\u00c9\u00c8\u00ca\u00cb\u00cc\u00ce\u00cf\u00d4\u00d9\u00db\u00c7\u00cd\u00d3\u00da\u00d1]",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        },
+        {
+          "type": "font",
+          "name": "FONT_MONTSERRAT_P30",
+          "file": "fonts/Montserrat-SemiBold.ttf",
+          "characterRegex": "[0-9A-Z ,%\u00c4\u00d6\u00dc\u00c0\u00c1\u00c2\u00c9\u00c8\u00ca\u00cb\u00cc\u00ce\u00cf\u00d4\u00d9\u00db\u00c7\u00cd\u00d3\u00da\u00d1]",
+          "targetPlatforms": [
+            "emery",
+            "gabbro"
+          ]
+        }
+      ]
     }
   }
 }
