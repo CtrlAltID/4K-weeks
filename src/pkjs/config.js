@@ -183,11 +183,13 @@ module.exports = [
         "type": "radiogroup",
         "messageKey": "GENDER",
         "label": "Gender",
-        "defaultValue": 0,
+        "description": "Selects which population life expectancy figure to use — " +
+            "the only two that exist in the data. Non-binary / prefer not to say " +
+            "averages the two rather than assuming either.",
         "options": [
           { "label": "Male", "value": 0 },
           { "label": "Female", "value": 1 },
-          { "label": "Other", "value": 2 }
+          { "label": "Non-binary / prefer not to say", "value": 2 }
         ]
       },
       {

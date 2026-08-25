@@ -239,7 +239,7 @@ static bool s_shake_muted;   // sustained motion seen, waiting for calm
 // the actual geolocation lookup happens in PebbleKit JS, which then sends
 // COUNTRY same as a manual pick would.
 static int s_birth_year = 1980, s_birth_month = 1, s_birth_day = 1;
-static uint8_t s_gender;      // 0 male, 1 female, 2 other
+static uint8_t s_gender;      // 0 male, 1 female, 2 non-binary/unset (averages the two)
 static char s_country[8] = "WORLD";  // ISO 3166-1 alpha-2, or "WORLD"; upper-cased
 static bool s_use_location;
 // Three complete scales rather than two switches to combine. 0 and 1 match the
@@ -1559,7 +1559,10 @@ static void prv_inbox_received(DictionaryIterator *iter, void *context) {
   t = dict_find(iter, MESSAGE_KEY_GENDER);
   if (t) {
     int32_t v = prv_tuple_int(t);
-    s_gender = (v >= 0 && v <= 2) ? (uint8_t)v : 0;
+    // Falls back to the average (2) on an out-of-range value — e.g. the
+    // settings page saved with nothing picked, now that it has no
+    // pre-selected option — rather than assuming male.
+    s_gender = (v >= 0 && v <= 2) ? (uint8_t)v : 2;
     persist_write_int(PERSIST_KEY_GENDER, s_gender);
   }
 
@@ -1703,8 +1706,11 @@ static void prv_init(void) {
     s_birth_month = (packed / 100) % 100;
     s_birth_day = packed % 100;
   }  // else the 1980-01-01 compiled-in default stands
+  // Falls back to the average (2) rather than assuming male on a watch that
+  // has never had a gender selection saved — matches the settings page
+  // itself having no option pre-selected, rather than silently picking one.
   s_gender = persist_exists(PERSIST_KEY_GENDER)
-      ? prv_clamp(persist_read_int(PERSIST_KEY_GENDER), 2, 0) : 0;
+      ? prv_clamp(persist_read_int(PERSIST_KEY_GENDER), 2, 2) : 2;
   if (persist_exists(PERSIST_KEY_COUNTRY)) {
     persist_read_string(PERSIST_KEY_COUNTRY, s_country, sizeof(s_country));
   }
