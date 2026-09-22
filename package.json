@@ -44,6 +44,12 @@
       "media": [
         {
           "type": "bitmap",
+          "name": "IMAGE_MENU_ICON",
+          "file": "images/icon.png",
+          "menuIcon": true
+        },
+        {
+          "type": "bitmap",
           "name": "IMAGE_DIGIT_34_0",
           "file": "images/digit_34_0.png",
           "targetPlatforms": [
