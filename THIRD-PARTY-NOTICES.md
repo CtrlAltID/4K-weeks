@@ -2,12 +2,14 @@
 
 ## Line Dash
 
-The dial, pill slide/animation, and bitmap numeral rendering in
-`src/c/4K-weeks.c` are adapted from **Line Dash**
+The dial, pill mechanism (shake-to-cycle through pages, battery fill), and
+bitmap numeral rendering in `src/c/4K-weeks.c` are adapted from **Line Dash**
 (<https://github.com/pagnotta/pebble-line-dash>) by Patrick Heeren
-(pagnotta), used under the MIT license below. The weeks-left pill, its
-settings (birthday, gender, country, location estimate), and
-`src/c/life_expectancy.h` are new additions, not part of the original.
+(pagnotta), used under the MIT license below. The pill's reveal animation was
+reworked from the original's slide-in-from-the-top into a grow/shrink from
+its own center. The weeks-left pill, its settings (birthday, gender,
+country, location estimate), and `src/c/life_expectancy.h` are new
+additions, not part of the original.
 
 ```
 MIT License
